@@ -28,6 +28,7 @@ class Departmental_Salary(Resource):
         parser.add_argument('start', type = str, required=True, help="Indicate letter of first last name to start (e.g., start=d)")
         parser.add_argument('stop', type = str, required=True, help="Indicate letter of first last name to stop (e.g., stop=e)")
         args = parser.parse_args()
+        conn = e.connect()
         query = conn.execute("SELECT Name,`Employee Annual Salary`  FROM salaries WHERE Department=? AND Name BETWEEN ? and ?", [department_name.upper(), args['start'].upper(),args['stop'].upper()]) 
         return {'data': [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]}
 
